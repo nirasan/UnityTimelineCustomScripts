@@ -1,14 +1,15 @@
 using UnityEngine.Timeline;
 using UnityEngine;
 using UnityEngine.Playables;
+using VRM;
 
 [TrackColor(0.855f, 0.8623f, 0.87f)]
-[TrackClipType(typeof(EyeRotationPlayableAsset))]
+[TrackClipType(typeof(BlendShapePlayableAsset))]
 [TrackBindingType(typeof(FacialController))]
-public class EyeRotationTrack : TrackAsset
+public class BlendShapeTrack : TrackAsset
 {
     public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)
     {
-        return ScriptPlayable<EyeRotationMixerBehaviour>.Create(graph, inputCount);
+        return ScriptPlayable<BlendShapeMixerBehaviour>.Create(graph, inputCount);
     }
 }

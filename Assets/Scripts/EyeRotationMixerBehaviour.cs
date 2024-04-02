@@ -8,10 +8,10 @@ public class EyeRotationMixerBehaviour : PlayableBehaviour
 {
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
     {
-        EyeController eyeController = playerData as EyeController;
-        if (!eyeController)
+        FacialController facialController = playerData as FacialController;
+        if (!facialController)
         {
-            Debug.LogError("[EyeRotationMixerBehaviour.ProcessFrame] eyeController not found");
+            Debug.LogError("[EyeRotationMixerBehaviour.ProcessFrame] FacialController not found");
         }
 
         int inputCount = playable.GetInputCount();
@@ -33,7 +33,7 @@ public class EyeRotationMixerBehaviour : PlayableBehaviour
 
         if (totalWeight > 0f)
         {
-            eyeController.SetEyeRotation(Quaternion.Slerp(eyeController.gameObject.transform.localRotation, blendedRotation, totalWeight));
+            facialController.SetEyeRotationWithSlerp(blendedRotation, totalWeight);
         }
     }
 }
