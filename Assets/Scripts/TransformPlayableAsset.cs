@@ -4,12 +4,13 @@ using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using VRM;
 
-[CreateAssetMenu(fileName = "BlendShapePlayableAsset", menuName = "Timeline/BlendShapePlayableAsset")]
-public class BlendShapePlayableAsset : PlayableAsset, ITimelineClipAsset
+[CreateAssetMenu(fileName = "TransformPlayableAsset", menuName = "Timeline/TransformPlayableAsset")]
+public class TransformPlayableAsset : PlayableAsset, ITimelineClipAsset
 {
-    public BlendShapeName blendShapeName;
-    public float startValue;
-    public float endValue;
+    public Vector3 startPosition;
+    public Quaternion startRotation;
+    public Vector3 endPosition;
+    public Quaternion endRotation;
     public double finalStateLeadTime;
     public ChangeType changeType = ChangeType.Linear;
     
@@ -17,13 +18,14 @@ public class BlendShapePlayableAsset : PlayableAsset, ITimelineClipAsset
 
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
     {
-        var playable = ScriptPlayable<BlendShapeBehaviour>.Create(graph);
+        var playable = ScriptPlayable<TransformBehaviour>.Create(graph);
         var behaviour = playable.GetBehaviour();
 
         // パラメータをBehaviourに渡す
-        behaviour.blendShapeIndex = (int)blendShapeName;
-        behaviour.startValue = startValue;
-        behaviour.endValue = endValue;
+        behaviour.startPosition = startPosition;
+        behaviour.startRotation = startRotation;
+        behaviour.endPosition = endPosition;
+        behaviour.endRotation = endRotation;
         behaviour.finalStateLeadTime = finalStateLeadTime;
         behaviour.changeType = changeType;
 

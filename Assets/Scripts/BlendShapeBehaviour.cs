@@ -9,13 +9,19 @@ public class BlendShapeBehaviour : PlayableBehaviour
     public float startValue;
     public float endValue;
     public float currentValue;
+    public double finalStateLeadTime;
     public ChangeType changeType;
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
     {
-        double duration = playable.GetDuration();
+        double duration = playable.GetDuration() - finalStateLeadTime; // クリップの最後に最終状態に移行するための予備の時間を設ける
         double time = playable.GetTime();
         float progress = (float)(time / duration);
+
+        if (progress > 1)
+        {
+            progress = 1f;
+        }
 
         // 変化の計算
         currentValue = CalculateValue(progress);
